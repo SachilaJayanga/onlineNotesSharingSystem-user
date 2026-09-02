@@ -2,8 +2,7 @@
 session_start();
 include('partials-front/navbar.php');
 
-// Ensure user is logged in
-if (!isset($_SESSION['id'])) {
+ if (!isset($_SESSION['id'])) {
     header("Location: login.php");
     exit();
 }
@@ -11,8 +10,7 @@ if (!isset($_SESSION['id'])) {
 if (isset($_GET['note_id'])) {
     $note_id = $_GET['note_id'];
 
-    // Fetch the note details
-    $sql = "SELECT tbl_notes.*, tbl_accounts.full_name 
+     $sql = "SELECT tbl_notes.*, tbl_accounts.full_name 
             FROM tbl_notes 
             JOIN tbl_accounts ON tbl_notes.account_id = tbl_accounts.id 
             WHERE note_id = $note_id";
@@ -34,8 +32,7 @@ if (isset($_GET['note_id'])) {
     header("Location: index.php");
 }
 
-// Handle comment submission
-if (isset($_POST['submit_comment'])) {
+ if (isset($_POST['submit_comment'])) {
     $account_id = $_SESSION['id'];
     $comment = mysqli_real_escape_string($conn, $_POST['comment']);
 
@@ -46,8 +43,7 @@ if (isset($_POST['submit_comment'])) {
     exit();
 }
 
-// Handle comment update
-if (isset($_POST['update_comment'])) {
+ if (isset($_POST['update_comment'])) {
     $comment_id = $_POST['comment_id'];
     $updated_comment = mysqli_real_escape_string($conn, $_POST['updated_comment']);
     
@@ -55,8 +51,7 @@ if (isset($_POST['update_comment'])) {
     mysqli_query($conn, $sql3);
 }
 
-// Handle comment deletion
-if (isset($_GET['delete_comment_id'])) {
+ if (isset($_GET['delete_comment_id'])) {
     $comment_id = $_GET['delete_comment_id'];
     
     $sql4 = "DELETE FROM tbl_comments WHERE id = $comment_id";
@@ -71,8 +66,7 @@ if (isset($_GET['delete_comment_id'])) {
         <hr>
     <br>
         <?php 
-        // Check if image exists
-        if ($image_name != "") {
+         if ($image_name != "") {
             ?>
             <img src="./images/icon/<?php echo $image_name; ?>" alt="Note Image" class="img-curve" width="30%">
             <?php
@@ -133,22 +127,18 @@ if (isset($_GET['delete_comment_id'])) {
                 </p>
 
                 <?php 
-                // Only show edit/delete options if the logged-in user is the owner of the comment
-                if ($_SESSION['id'] == $comment_user_id) {
+                 if ($_SESSION['id'] == $comment_user_id) {
                     ?>
 
-                <!-- Edit Comment Button -->
-                <a href="javascript:void(0);" onclick="showEditForm(<?php echo $comment_id; ?>)" style="color: blue; text-decoration: none; margin-right: 10px;">Edit</a>
+                 <a href="javascript:void(0);" onclick="showEditForm(<?php echo $comment_id; ?>)" style="color: blue; text-decoration: none; margin-right: 10px;">Edit</a>
                 
-                <!-- Delete Comment Button -->
-                <a href="?note_id=<?php echo $note_id; ?>&delete_comment_id=<?php echo $comment_id; ?>" onclick="return confirm('Are you sure you want to delete this comment?');" style="color: red">Delete</a>
+                 <a href="?note_id=<?php echo $note_id; ?>&delete_comment_id=<?php echo $comment_id; ?>" onclick="return confirm('Are you sure you want to delete this comment?');" style="color: red">Delete</a>
                 
                 <?php
                 }
                 ?>
 
-                <!-- Edit Form (Initially Hidden) -->
-                <div id="edit-form-<?php echo $comment_id; ?>" style="display:none;">
+                 <div id="edit-form-<?php echo $comment_id; ?>" style="display:none;">
                     <form action="" method="POST">
                         <input type="hidden" name="comment_id" value="<?php echo $comment_id; ?>">
                         <textarea name="updated_comment" required><?php echo $comment_text; ?></textarea><br>
