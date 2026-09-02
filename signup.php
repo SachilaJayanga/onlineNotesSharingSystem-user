@@ -9,16 +9,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     $role = $_POST['role'];
 
-    // Hash the password
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Check connection
-    if ($conn->connect_error) {
+     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Prepare and bind
-    $stmt = $conn->prepare("INSERT INTO tbl_accounts (full_name, email, username, password, role) VALUES (?, ?, ?, ?, ?)");
+     $stmt = $conn->prepare("INSERT INTO tbl_accounts (full_name, email, username, password, role) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $full_name, $email, $username, $hashed_password, $role);
 
     if ($stmt->execute()) {
@@ -53,14 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if(isset($_SESSION['success']))  
             {
-                echo $_SESSION['success']; //Display the SEssion Message if SEt
-                unset($_SESSION['success']); //Remove Session Message
+                echo $_SESSION['success'];  
+                unset($_SESSION['success']);  
             }
 
             if(isset($_SESSION['error']))  
             {
-                echo $_SESSION['error']; //Display the SEssion Message if SEt
-                unset($_SESSION['error']); //Remove Session Message
+                echo $_SESSION['error']; 
+                unset($_SESSION['error']); 
             }
 
          ?>
