@@ -7,8 +7,7 @@ include('partials-front/navbar.php');
 <?php
 
 
-// Display status messages
-if (isset($_SESSION['message'])) {
+ if (isset($_SESSION['message'])) {
     echo $_SESSION['message'];
     unset($_SESSION['message']);
 }
@@ -17,12 +16,7 @@ if (isset($_SESSION['message'])) {
 <div class="main-content">
     <div class="wrapper">
         <h1>Manage Notes</h1>
-
-        <br><br>
-
-                
-                
-
+ 
                 <br><br><br>
 
                 <?php 
@@ -92,16 +86,13 @@ if (isset($_SESSION['message'])) {
                                     
                                     <td>
                                         <?php  
-                                            //CHeck whether we have image or not
-                                            if($image_name=="")
+                                             if($image_name=="")
                                             {
-                                                //WE do not have image, DIslpay Error Message
-                                                echo "<div class='error'>Image not Added.</div>";
+                                                 echo "<div class='error'>Image not Added.</div>";
                                             }
                                             else
                                             {
-                                                //WE Have Image, Display Image
-                                                ?>
+                                                 ?>
                                                 <img src="../images/food/<?php echo $image_name; ?>" width="100px">
                                                 <?php
                                             }
@@ -120,8 +111,7 @@ if (isset($_SESSION['message'])) {
                         }
                         else
                         {
-                            //Added in Database
-                            echo "<tr> <td colspan='7' class='error'> Notes not Added Yet. </td> </tr>";
+                             echo "<tr> <td colspan='7' class='error'> Notes not Added Yet. </td> </tr>";
                         }
 
                     ?>
