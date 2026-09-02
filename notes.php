@@ -6,8 +6,7 @@ include('partials-front/navbar.php');
 
 ?>
 
-<!-- sEARCH Section Starts Here -->
-<section class="search text-center">
+ <section class="search text-center">
     <div class="container">
         
         <form action="search.php" method="POST">
@@ -17,11 +16,7 @@ include('partials-front/navbar.php');
 
     </div>
 </section>
-<!-- sEARCH Section Ends Here -->
-
-
-
-<!-- MEnu Section Starts Here -->
+  
 <section class="menu">
     <div class="container">
         <h2 class="text-center">Notes</h2>
@@ -29,23 +24,14 @@ include('partials-front/navbar.php');
         <?php 
 
             $id = $_SESSION['id'];
-            //Display Foods that are Active
-            $sql = "SELECT * FROM tbl_notes WHERE active='Yes' ORDER BY likes DESC";
-
-            //Execute the Query
-            $res=mysqli_query($conn, $sql);
-
-            //Count Rows
-            $count = mysqli_num_rows($res);
-
-            //CHeck whether the foods are availalable or not
+             $sql = "SELECT * FROM tbl_notes WHERE active='Yes' ORDER BY likes DESC"; 
+            $res=mysqli_query($conn, $sql); 
+             $count = mysqli_num_rows($res); 
             if($count>0)
             {
-                //Foods Available
-                while($row=mysqli_fetch_assoc($res))
+                 while($row=mysqli_fetch_assoc($res))
                 {
-                    //Get the Values
-                    $note_id = $row['note_id']; 
+                     $note_id = $row['note_id']; 
                     $title = $row['title'];
                     $description = $row['description'];
                     $image_name = $row['image_name'];
@@ -58,11 +44,9 @@ include('partials-front/navbar.php');
                         <div>
                        
                             <?php 
-                                //CHeck whether image available or not
-                                if($image_name=="")
+                                 if($image_name=="")
                                 {
-                                    //Image not Available 
-                                    ?>
+                                     ?>
                                      <img src="./images/default.png" alt="notes" class="img-responsive img-curve" width="60px">
                                     <?php    
                                 }
@@ -87,8 +71,7 @@ include('partials-front/navbar.php');
                             <button id="like-button-<?php echo $note_id; ?>" class="btn btn-like" onclick="toggleLike(<?php echo $note_id; ?>)">
 
                             <?php
-                            // Check if user already liked this note
-                            $account_id = $_SESSION['id'];
+                             $account_id = $_SESSION['id'];
                             $check_like_sql = "SELECT * FROM tbl_likes WHERE account_id = $account_id AND note_id = $note_id";
                             $check_like_res = mysqli_query($conn, $check_like_sql);
                             if (mysqli_num_rows($check_like_res) > 0) {
@@ -109,8 +92,7 @@ include('partials-front/navbar.php');
             }
             else
             {
-                //Notes not Available
-                echo "<div class='error'>Notes not found.</div>";
+                 echo "<div class='error'>Notes not found.</div>";
             }
         ?>
 
