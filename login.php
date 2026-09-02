@@ -8,8 +8,7 @@ if (isset($_POST['submit'])) {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = md5($_POST['password']);
 
-    // Fetch user data from the database
-    $select = "SELECT * FROM tbl_accounts WHERE username = '$username' AND password = '$password' ";
+     $select = "SELECT * FROM tbl_accounts WHERE username = '$username' AND password = '$password' ";
     $result = mysqli_query($conn, $select);
 
     if ($result->num_rows > 0) {
@@ -77,10 +76,7 @@ if (isset($_POST['submit'])) {
             </form>
         </div>
     </div>
-
-     
-    
-    
+ 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     
