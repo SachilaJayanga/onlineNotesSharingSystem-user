@@ -4,26 +4,21 @@ include('partials-front/navbar.php');
 ?>
 
 <?php 
-    // Check whether subject_id is passed or not
-    if(isset($_GET['subject_id'])) {
-        // Get subject_id from URL
-        $subject_id = $_GET['subject_id'];
+     if(isset($_GET['subject_id'])) {
+         $subject_id = $_GET['subject_id'];
         
-        // Get the Category Title Based on subject_id
-        $sql = "SELECT title FROM tbl_subjects WHERE id=$subject_id";
+         $sql = "SELECT title FROM tbl_subjects WHERE id=$subject_id";
         $res = mysqli_query($conn, $sql);
 
         if ($res && mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             $subject_title = $row['title'];
         } else {
-            // Redirect if category not found
-            header('location:index.php');
+             header('location:index.php');
             exit();
         }
     } else {
-        // Redirect if category is not passed
-        header('location:index.php');
+         header('location:index.php');
         exit();
     }
 ?>
@@ -39,8 +34,7 @@ include('partials-front/navbar.php');
         <h2 class="text-center">Notes</h2>
         
         <?php 
-            // Update query to fetch notes in the selected category
-            $sql = "SELECT * FROM tbl_notes WHERE subject_id = $subject_id AND active='Yes' ORDER BY likes DESC";
+             $sql = "SELECT * FROM tbl_notes WHERE subject_id = $subject_id AND active='Yes' ORDER BY likes DESC";
             $res = mysqli_query($conn, $sql);
 
             if($res && mysqli_num_rows($res) > 0) {
@@ -57,8 +51,7 @@ include('partials-front/navbar.php');
                         <div class="menu-img">
                             <?php 
                                 if($image_name == "") {
-                                    // Display default image if no image is available
-                                    echo "<a href='note_page.php?note_id=$note_id'><img src='./images/default.png' alt='notes' class='img-responsive img-curve' width='60px'></a>";
+                                     echo "<a href='note_page.php?note_id=$note_id'><img src='./images/default.png' alt='notes' class='img-responsive img-curve' width='60px'></a>";
                                 } else {
                                     echo "<a href='note_page.php?note_id=$note_id'><img src='./images/icon/$image_name' alt='notes' class='img-responsive img-curve' width='60px'></a>";
                                 }
@@ -71,8 +64,7 @@ include('partials-front/navbar.php');
                             <div class="btn-like-align">    
                                 <button id="like-button-<?php echo $note_id; ?>" class="btn btn-like" onclick="toggleLike(<?php echo $note_id; ?>)">
                                     <?php
-                                    // Check if the user has already liked this note
-                                    $account_id = $_SESSION['id'];
+                                     $account_id = $_SESSION['id'];
                                     $check_like_sql = "SELECT * FROM tbl_likes WHERE account_id = $account_id AND note_id = $note_id";
                                     $check_like_res = mysqli_query($conn, $check_like_sql);
                                     if (mysqli_num_rows($check_like_res) > 0) {
@@ -90,8 +82,7 @@ include('partials-front/navbar.php');
                     <?php
                 }
             } else {
-                // Display message if no notes are available in this category
-                echo "<div class='error'>Notes not found in this category.</div>";
+                 echo "<div class='error'>Notes not found in this category.</div>";
             }
         ?>
 
